@@ -51,16 +51,16 @@ public class APITesting extends BaseTestCase{
     public void RegistrationWithPost(){
         String firstName = "Virender";
         String lastName = "Singh";
-        String userName = "sdimpleuser2dd2011";
+        String userName = "randomUsername";
         String password = "password1";
-        String email = "sample2ee26d9@gmail.com";
+        String email = "randomemail@gmail.com";
 
         WeatherRequestBuilder postRequest = new WeatherRequestBuilder();
         postRequest.setFirstName(firstName);
         postRequest.setLastName(lastName);
-        postRequest.setUserName(userName);
+        postRequest.setUserName(userName+(int)(Math.random()*100));
         postRequest.setPassword(password);
-        postRequest.setEmail(email);
+        postRequest.setEmail((int)(Math.random()*100)+email);
 
         response = postRequest.sendPostRequestAndReceiveResponse();
 
@@ -69,7 +69,7 @@ public class APITesting extends BaseTestCase{
         Assert.assertEquals(response.getStatusCode(), 201);
 
         String responseSuccessCode = weatherApiActions.getResponseSuccessCode(response);
-        Assert.assertEquals("Correct success code was returned", responseSuccessCode, "OPERATION, SUCCESS");
+        Assert.assertEquals(responseSuccessCode, "OPERATION_SUCCESS", "Correct success code was returned");
     }
 
 }
