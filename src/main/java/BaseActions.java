@@ -1,15 +1,20 @@
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSpecification;
 
 public class BaseActions {
 
-    public Response getWeatherDetailsWithCity(String city) {
-        return RestAssured.given().when().get("/"+city);
+    private final ApiHttpClient apiHttpClient;
+
+    public BaseActions(ApiHttpClient apiHttpClient) {
+        this.apiHttpClient = apiHttpClient;
     }
 
-    public String getResourceFromJsonResponse(Response response, String neededResource) {
+    ApiResponse getWeatherDetailsWithCity(String city) {
+        String url = "/" + city;
+        return apiHttpClient.get(url);
+    }
+
+    String getResourceFromJsonResponse(Response response, String neededResource) {
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get(neededResource);
     }

@@ -54,7 +54,6 @@ public class WeatherRequestBuilder {
 
     public Response sendPostRequestAndReceiveResponse() {
         RestAssured.baseURI ="http://restapi.demoqa.com/customer";
-        System.out.println(postRequestParams.toString());
         Response response = RestAssured.given().contentType("application/json").body(postRequestParams.toString()).when().post("/register");
         RestAssured.baseURI ="http://restapi.demoqa.com/utilities/weather/city/";
         return response;
